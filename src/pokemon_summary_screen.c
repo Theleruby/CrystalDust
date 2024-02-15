@@ -2750,12 +2750,28 @@ static bool8 IsInGamePartnerMon(void)
     return FALSE;
 }
 
+static void PrintNatureSymbol(s8 natureMod, u32 y)
+{
+    static const u8 sTextNatureUp[] = _("{COLOR RED}+");
+    static const u8 sTextNatureDown[] = _("{COLOR RED}-");
+    u8 x = 35;
+    if (natureMod == 0) return;
+    if (natureMod > 0) {
+        StringCopy(gStringVar1, sTextNatureUp);
+    } else {
+        StringCopy(gStringVar1, sTextNatureDown);
+        x += 1;
+    }
+    PrintTextOnWindow(WINDOW_ARR_ID_SKILLS_RIGHT, gStringVar1, x, y, 0, PSS_COLOR_BLACK_GRAY_SHADOW);
+}
+
 static void PrintSkillsPage(void)
 {
     u8 x, i;
     u16 *dst;
     struct Pokemon *mon = &sMonSummaryScreen->currentMon;
     struct PokeSummary *summary = &sMonSummaryScreen->summary;
+    const s8 *natureMod = gNatureStatTable[summary->nature];
     FillWindowPixelBuffer(WINDOW_ARR_ID_SKILLS_RIGHT, PIXEL_FILL(0));
     FillWindowPixelBuffer(WINDOW_ARR_ID_SKILLS_EXP_NEXT_ABILITY_NAME, PIXEL_FILL(0));
     FillWindowPixelBuffer(WINDOW_ARR_ID_SKILLS_ABILITY_TEXT, PIXEL_FILL(0));
@@ -2770,22 +2786,27 @@ static void PrintSkillsPage(void)
     ConvertIntToDecimalStringN(gStringVar1, summary->atk, STR_CONV_MODE_LEFT_ALIGN, 3);
     x = GetStringRightAlignXOffset(1, gStringVar1, 69);
     PrintTextOnWindow(WINDOW_ARR_ID_SKILLS_RIGHT, gStringVar1, x, 22, 0, PSS_COLOR_BLACK_GRAY_SHADOW);
+    PrintNatureSymbol(natureMod[STAT_ATK - 1], 22);
 
     ConvertIntToDecimalStringN(gStringVar1, summary->def, STR_CONV_MODE_LEFT_ALIGN, 3);
     x = GetStringRightAlignXOffset(1, gStringVar1, 69);
     PrintTextOnWindow(WINDOW_ARR_ID_SKILLS_RIGHT, gStringVar1, x, 35, 0, PSS_COLOR_BLACK_GRAY_SHADOW);
+    PrintNatureSymbol(natureMod[STAT_DEF - 1], 35);
 
     ConvertIntToDecimalStringN(gStringVar1, summary->spatk, STR_CONV_MODE_LEFT_ALIGN, 3);
     x = GetStringRightAlignXOffset(1, gStringVar1, 69);
     PrintTextOnWindow(WINDOW_ARR_ID_SKILLS_RIGHT, gStringVar1, x, 48, 0, PSS_COLOR_BLACK_GRAY_SHADOW);
+    PrintNatureSymbol(natureMod[STAT_SPATK - 1], 48);
 
     ConvertIntToDecimalStringN(gStringVar1, summary->spdef, STR_CONV_MODE_LEFT_ALIGN, 3);
     x = GetStringRightAlignXOffset(1, gStringVar1, 69);
     PrintTextOnWindow(WINDOW_ARR_ID_SKILLS_RIGHT, gStringVar1, x, 61, 0, PSS_COLOR_BLACK_GRAY_SHADOW);
+    PrintNatureSymbol(natureMod[STAT_SPDEF - 1], 61);
 
     ConvertIntToDecimalStringN(gStringVar1, summary->speed, STR_CONV_MODE_LEFT_ALIGN, 3);
     x = GetStringRightAlignXOffset(1, gStringVar1, 69);
     PrintTextOnWindow(WINDOW_ARR_ID_SKILLS_RIGHT, gStringVar1, x, 74, 0, PSS_COLOR_BLACK_GRAY_SHADOW);
+    PrintNatureSymbol(natureMod[STAT_SPEED - 1], 74);
 
     ConvertIntToDecimalStringN(gStringVar1, summary->exp, STR_CONV_MODE_RIGHT_ALIGN, 7);
     x = GetStringRightAlignXOffset(1, gStringVar1, 70);
