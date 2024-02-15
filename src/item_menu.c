@@ -1895,7 +1895,7 @@ static void Task_ItemContext_Sell(u8 taskId)
 {
     s16* data = gTasks[taskId].data;
 
-    if (ItemId_GetPrice(gSpecialVar_ItemId))
+    if (ItemId_GetPrice(gSpecialVar_ItemId) && ItemId_GetPocket(gSpecialVar_ItemId) != POCKET_TM_HM)
     {
         tItemCount = 1;
         if (tQuantity == 1)
