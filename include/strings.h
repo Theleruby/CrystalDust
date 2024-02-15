@@ -989,6 +989,8 @@ extern const u8 gText_EggWillTakeALongTime[];
 extern const u8 gText_EggAboutToHatch[];
 extern const u8 gText_EggWillHatchSoon[];
 extern const u8 gText_EggWillTakeSomeTime[];
+extern const u8 gText_EggBad[];
+extern const u8 gText_EggStepsLeft[];
 extern const u8 gText_PeculiarEggNicePlace[];
 extern const u8 gText_PeculiarEggTrade[];
 extern const u8 gText_EggFromElm[];

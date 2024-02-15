@@ -2561,15 +2561,19 @@ static void PrintInfoPageEgg(void)
     GetMonNickname(mon, gStringVar1);
     PrintTextOnWindow(WINDOW_ARR_ID_INFO_RIGHT, gStringVar1, 47, 19, 0, PSS_COLOR_BLACK_GRAY_SHADOW);
 
-    if (sum->sanity || sum->friendship > 40)
-        text = gText_EggWillTakeALongTime;
-    else if (sum->friendship > 10)
-        text = gText_EggWillTakeSomeTime;
-    else if (sum->friendship > 5)
-        text = gText_EggWillHatchSoon;
-    else
-        text = gText_EggAboutToHatch;
-    PrintTextOnWindow(WINDOW_ARR_ID_INFO_RIGHT, text, 7, 45, 0, PSS_COLOR_BLACK_GRAY_SHADOW);
+    if (sum->sanity) {
+        text = gText_EggBad;
+        PrintTextOnWindow(WINDOW_ARR_ID_INFO_RIGHT, text, 7, 45, 0, PSS_COLOR_BLACK_GRAY_SHADOW);
+    } else {
+        struct DayCare *daycare = &gSaveBlock1Ptr->daycare;
+        u8 stepCounter = daycare->stepCounter + 1;
+        u32 stepsLeftInCycle = 255 - stepCounter;
+        u32 stepsLeftForCycling = sum->friendship * 256;
+        u32 stepsLeftTotal = stepsLeftForCycling + stepsLeftInCycle + 1;
+        ConvertUIntToDecimalStringN(gStringVar1, stepsLeftTotal, STR_CONV_MODE_RIGHT_ALIGN, 5);
+        StringAppend(gStringVar1, gText_EggStepsLeft);
+        PrintTextOnWindow(WINDOW_ARR_ID_INFO_RIGHT, gStringVar1, 7, 45, 0, PSS_COLOR_BLACK_GRAY_SHADOW);
+    }
 
     text = gText_OddEggFoundByCouple;
     if (sum->sanity != 1)
