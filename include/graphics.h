@@ -4220,6 +4220,7 @@ extern const u32 gSummaryScreenPageMovesTilemap[];
 extern const u32 gSummaryScreenPageMoveDetailsTilemap[];
 extern const u32 gSummaryScreenPageContestMovesTilemap[];
 extern const u32 gSummaryScreenPageContestMoveDetailsTilemap[];
+extern const u32 gSummaryScreenPageValuesTilemap[];
 
 extern const u32 gSummaryExpBar_Tiles[];
 extern const u32 gSummaryHealthBar_Tiles[];

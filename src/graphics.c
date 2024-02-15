@@ -1140,6 +1140,7 @@ const u32 gSummaryScreenPageMovesTilemap[] = INCBIN_U32("graphics/summary_screen
 const u32 gSummaryScreenPageMoveDetailsTilemap[] = INCBIN_U32("graphics/summary_screen/page_moves_selected.bin.lz");
 const u32 gSummaryScreenPageContestMovesTilemap[] = INCBIN_U32("graphics/summary_screen/page_moves_contest.bin.lz");
 const u32 gSummaryScreenPageContestMoveDetailsTilemap[] = INCBIN_U32("graphics/summary_screen/page_moves_contest_selected.bin.lz");
+const u32 gSummaryScreenPageValuesTilemap[] = INCBIN_U32("graphics/summary_screen/page_values.bin.lz");
 
 const u32 gSummaryExpBar_Tiles[] = INCBIN_U32("graphics/summary_screen/exp_bar.4bpp.lz");
 const u32 gSummaryHealthBar_Tiles[] = INCBIN_U32("graphics/summary_screen/hp_bar.4bpp.lz");
