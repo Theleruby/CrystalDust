@@ -894,6 +894,7 @@ static void SetPlayerCardData(struct TrainerCard *trainerCard, u8 cardType)
     trainerCard->caughtMonsCount = GetCaughtMonsCount();
 
     trainerCard->trainerId = (gSaveBlock2Ptr->playerTrainerId[1] << 8) | gSaveBlock2Ptr->playerTrainerId[0];
+    trainerCard->secretId = (gSaveBlock2Ptr->playerTrainerId[3] << 8) | gSaveBlock2Ptr->playerTrainerId[2];
 
     trainerCard->linkBattleWins = GetCappedGameStat(GAME_STAT_LINK_BATTLE_WINS, 9999);
     trainerCard->linkBattleLosses = GetCappedGameStat(GAME_STAT_LINK_BATTLE_LOSSES, 9999);
@@ -1276,11 +1277,17 @@ static void PrintNameOnCardFront(void)
 static void PrintIdOnCard(void)
 {
     u8 buffer[32];
-    u8* txtPtr;
+    u8* txtPtr = buffer;
     s32 xPos;
 
-    txtPtr = StringCopy(buffer, sTrainerCardIDNoTexts[sData->cardType == CARD_TYPE_RS]);
-    ConvertIntToDecimalStringN(txtPtr, sData->trainerCard.trainerId, STR_CONV_MODE_LEADING_ZEROS, 5);
+    if (sData->trainerCard.secretId == 0) {
+        txtPtr = StringCopy(txtPtr, sTrainerCardIDNoTexts[sData->cardType == CARD_TYPE_RS]);
+    }
+    txtPtr = ConvertIntToDecimalStringN(txtPtr, sData->trainerCard.trainerId, STR_CONV_MODE_LEADING_ZEROS, 5);
+    if (sData->trainerCard.secretId != 0) {
+        txtPtr = StringCopy(txtPtr, gText_OneDash);
+        ConvertIntToDecimalStringN(txtPtr, sData->trainerCard.secretId, STR_CONV_MODE_LEADING_ZEROS, 5);
+    }
     xPos = GetStringCenterAlignXOffset(sTrainerCardFonts[sData->cardType], buffer, sTrainerCardFrontIdXOffsets[sData->cardType][0]) + sTrainerCardFrontIdXOffsets[sData->cardType][1];
 
     AddTextPrinterParameterized3(1, sTrainerCardFonts[sData->cardType], xPos, sTrainerCardFrontIdYOffsets[sData->cardType], sTrainerCardTextColors, TEXT_SPEED_FF, buffer);
